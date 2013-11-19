@@ -217,6 +217,25 @@ describe 'duplicity::job' do
     end
   end
 
+  context "with archive_dir" do
+    let(:params) {
+      {
+        :bucket       => 'somebucket',
+        :directory    => '/root/mysqldump',
+        :dest_id      => 'some_id',
+        :dest_key     => 'some_key',
+        :pre_command  => 'mysqldump database',
+        :spoolfile    => spoolfile,
+        :archive_dir  => '/arch',
+      }
+    }
+
+    it "should append archive dir to duplicity task" do
+      should contain_file(spoolfile) \
+        .with_content(/--archive-dir \/arch/)
+    end
+  end
+
   context "with coercion of non-zero return value to specific one" do
 
     exit_code = 2

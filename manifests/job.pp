@@ -14,6 +14,7 @@ define duplicity::job(
   $pre_command = undef,
   $default_exit_code = undef,
   $spoolfile,
+  $archive_dir = undef,
 ) {
 
   include duplicity::params
