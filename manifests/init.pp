@@ -56,4 +56,13 @@ define duplicity(
   }
 
   File[$spoolfile]->Cron[$name]
+
+  exec { $archive_dir:
+    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+    command => "mkdir -p ${archive_dir}",
+    user    => root,
+    group   => root,
+    creates => $archive_dir,
+    before  => Cron[$name],
+  }
 }
